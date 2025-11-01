@@ -1,0 +1,48 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "level1.tmx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "level1.tmx": {
+            "scale": 0.74,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 280.40540540540536,
+                "y": 519.5945945945946
+            }
+        },
+        "level1_ts.tsx": {
+            "scaleInDock": 0.1381,
+            "scaleInEditor": 1
+        },
+        "level1ts.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "/Users/aqulu/Development/gamedev_lessons/task-s/task_2/assets/images",
+    "map.height": 16,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 64,
+    "map.tileWidth": 64,
+    "map.width": 10,
+    "openFiles": [
+        "level1.tmx",
+        "level1ts.tsx"
+    ],
+    "project": "task2Game.tiled-project",
+    "recentFiles": [
+        "level1ts.tsx",
+        "level1.tmx",
+        "level1_ts.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 64,
+        "width": 64
+    }
+}
