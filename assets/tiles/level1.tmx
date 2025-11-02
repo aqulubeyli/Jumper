@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="10" height="16" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="11">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="10" height="16" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="15">
  <tileset firstgid="1" source="level1ts.tsx"/>
  <layer id="1" name="background" width="10" height="16">
   <data encoding="csv">
@@ -24,7 +24,7 @@
  <objectgroup id="2" name="spawnpoints">
   <object id="1" name="player" type="player" x="318.919" y="897.946" width="64" height="64"/>
  </objectgroup>
- <objectgroup id="3" name="collisions">
+ <objectgroup id="3" name="collision_wall">
   <object id="2" x="0" y="1.35135" width="62.1622" height="958.108"/>
   <object id="3" x="63.5135" y="320.27"/>
   <object id="4" x="66.2162" y="327.027">
@@ -34,8 +34,13 @@
   <object id="6" x="575.735" y="515.017">
    <polygon points="-0.488329,-0.488329 -63.1304,61.0695 0.947669,125.528"/>
   </object>
-  <object id="7" x="129.913" y="577.576" width="184.526" height="61.2329"/>
-  <object id="8" x="324.369" y="705.834" width="55.4406" height="61.2329"/>
-  <object id="9" x="196.111" y="834.092" width="55.4406" height="50.4758"/>
+ </objectgroup>
+ <objectgroup id="5" name="collision_ground">
+  <object id="14" x="3.49467" y="960.984" width="632.535" height="62.9546"/>
+ </objectgroup>
+ <objectgroup id="4" name="collision_platforma">
+  <object id="11" x="129.086" y="578.403" width="186.181" height="58.7505"/>
+  <object id="12" x="322.714" y="709.971" width="60.4055" height="54.6132"/>
+  <object id="13" x="193.628" y="834.092" width="60.4055" height="47.9934"/>
  </objectgroup>
 </map>

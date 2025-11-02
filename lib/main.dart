@@ -5,14 +5,19 @@ import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flame_tiled/flame_tiled.dart';
-import 'package:task_2/collisions_block.dart';
+import 'package:task_2/collisions_class/collision_ground.dart';
+import 'package:task_2/collisions_class/collision_wall.dart';
+import 'package:task_2/collisions_class/collision_platforma.dart';
 import 'package:task_2/player.dart';
 
 void main() {
   runApp(GameWidget(game: Task2Game()));
 }
 
-class Task2Game extends FlameGame {
+class Task2Game extends FlameGame with HasCollisionDetection {
+  late final JoystickComponent joystick;
+  late final Player player;
+
   late TiledComponent map;
 
   @override
@@ -20,7 +25,18 @@ class Task2Game extends FlameGame {
     await super.onLoad();
     debugMode = true;
 
-    final player = Player();
+    joystick = JoystickComponent(
+      knob: CircleComponent(radius: 20, paint: Paint()..color = Colors.white),
+      background: CircleComponent(
+        radius: 40,
+        paint: Paint()..color = Colors.black12,
+      ),
+      margin: const EdgeInsets.only(left: 40, bottom: 40),
+    );
+
+    // final player = Player();
+    player = Player(position: Vector2.zero(), joystick: joystick);
+
     // player.anchor = Anchor.topLeft;
     map = await TiledComponent.load('level1.tmx', Vector2.all(64));
     world.add(map);
@@ -39,19 +55,37 @@ class Task2Game extends FlameGame {
       print(" Error loading spawnpoints: $e");
     }
 
-    final layer = map.tileMap.getLayer<ObjectGroup>('collisions');
+    final wall = map.tileMap.getLayer<ObjectGroup>('collision_wall');
+    final platforma = map.tileMap.getLayer<ObjectGroup>('collision_platforma');
+    final ground = map.tileMap.getLayer<ObjectGroup>('collision_ground');
 
-    if (layer != null) {
+    if (wall != null) {
       // 2. Создаем компоненты коллизий
-      for (final obj in layer.objects) {
+      for (final obj in wall.objects) {
         world.add(
           // Используем наш собственный класс CollisionBlock,
           // чтобы избежать ошибки с TiledObject.
-          CollisionBlock(obj),
+          CollisionWall(obj),
         );
       }
     } else {
-      print('ПРЕДУПРЕЖДЕНИЕ: Объектный слой "collisions" не найден.');
+      print('ПРЕДУПРЕЖДЕНИЕ: Объектный слой "collision_wall" не найден.');
+    }
+
+    if (platforma != null) {
+      for (final obj in platforma.objects) {
+        world.add(CollisionPlatforma(obj));
+      }
+    } else {
+      print('ПРЕДУПРЕЖДЕНИЕ: Объектный слой "collision_platforma" не найден.');
+    }
+
+    if (ground != null) {
+      for (final obj in ground.objects) {
+        world.add(CollisionGround(obj));
+      }
+    } else {
+      print('ПРЕДУПРЕЖДЕНИЕ: Объектный слой "collision_ground" не найден.');
     }
 
     world.add(player);
@@ -59,6 +93,8 @@ class Task2Game extends FlameGame {
     // camera.viewfinder.anchor = Anchor.center;
     camera.follow(player);
     camera.setBounds(Rectangle.fromLTWH(0, 0, map.width, map.height));
+
+    camera.viewport.add(joystick);
     return super.onLoad();
   }
 }
