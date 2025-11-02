@@ -60,16 +60,11 @@ class Task2Game extends FlameGame with HasCollisionDetection {
     final ground = map.tileMap.getLayer<ObjectGroup>('collision_ground');
 
     if (wall != null) {
-      // 2. Создаем компоненты коллизий
       for (final obj in wall.objects) {
-        world.add(
-          // Используем наш собственный класс CollisionBlock,
-          // чтобы избежать ошибки с TiledObject.
-          CollisionWall(obj),
-        );
+        world.add(CollisionWall(obj));
       }
     } else {
-      print('ПРЕДУПРЕЖДЕНИЕ: Объектный слой "collision_wall" не найден.');
+      print('Warning: Object leayer "collision_wall" не найден.');
     }
 
     if (platforma != null) {
@@ -77,7 +72,7 @@ class Task2Game extends FlameGame with HasCollisionDetection {
         world.add(CollisionPlatforma(obj));
       }
     } else {
-      print('ПРЕДУПРЕЖДЕНИЕ: Объектный слой "collision_platforma" не найден.');
+      print('Warning: Object leayer "collision_platforma" не найден.');
     }
 
     if (ground != null) {
@@ -85,7 +80,7 @@ class Task2Game extends FlameGame with HasCollisionDetection {
         world.add(CollisionGround(obj));
       }
     } else {
-      print('ПРЕДУПРЕЖДЕНИЕ: Объектный слой "collision_ground" не найден.');
+      print('Warning: Object leayer "collision_ground" не найден.');
     }
 
     world.add(player);
