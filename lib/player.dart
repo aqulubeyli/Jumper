@@ -2,6 +2,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:task_2/collisions_class/collision_ground.dart';
+import 'package:task_2/collisions_class/collision_platforma.dart';
 import 'package:task_2/collisions_class/collision_wall.dart';
 
 class Player extends PositionComponent with CollisionCallbacks {
@@ -75,6 +76,22 @@ class Player extends PositionComponent with CollisionCallbacks {
         position.x = other.position.x + other.size.x;
       }
       velocity.x = 0;
+    }
+
+    // ✅ Ground collision
+    if (other is CollisionPlatforma) {
+      // Player bottom touches the ground top
+      final playerBottom = position.y + size.y;
+      final platformTop = other.position.y;
+
+      // Only land if falling downward and hitting the top of platform
+      if (velocity.y > 0 &&
+          playerBottom > platformTop &&
+          position.y + size.y < platformTop + other.size.y / 2) {
+        position.y = platformTop - size.y;
+        velocity.y = 0;
+        isOnGround = true;
+      }
     }
   }
 
