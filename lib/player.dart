@@ -24,20 +24,41 @@ class Player extends PositionComponent with CollisionCallbacks {
     add(RectangleHitbox());
   }
 
+  double moveTowards(double current, double target, double maxDelta) {
+    if ((target - current).abs() <= maxDelta) return target;
+    return current + (target > current ? maxDelta : -maxDelta);
+  }
+
   @override
   void update(double dt) {
     super.update(dt);
 
-    // Apply horizontal movement
-    velocity.x = joystick.relativeDelta.x * _moveSpeed;
+    // ---- 1) Smooth Horizontal Movement (Acceleration) ----
+    double targetXSpeed = joystick.relativeDelta.x * _moveSpeed;
+    velocity.x = moveTowards(
+      velocity.x,
+      targetXSpeed,
+      800 * dt,
+    ); // <— 800 = acceleration strength
 
-    // Apply gravity
-    velocity.y += _gravity * dt;
+    // ---- 2) Better Gravity (fall faster) ----
+    if (velocity.y < 0) {
+      // going up
+      velocity.y += _gravity * 0.6 * dt; // gentle gravity going up
+    } else {
+      // falling
+      velocity.y += _gravity * 1.3 * dt; // stronger fall
+    }
 
-    // Update position
+    // ---- 3) Variable Jump Height ----
+    if (!isOnGround && joystick.relativeDelta.y > -0.2 && velocity.y < 0) {
+      velocity.y *= 0.6; // stop rising early
+    }
+
+    // ---- Apply movement ----
     position += velocity * dt;
 
-    // If we are on the ground and joystick pressed up → jump
+    // ---- Jump (press up) ----
     if (isOnGround && joystick.relativeDelta.y < -0.5) {
       jump();
     }

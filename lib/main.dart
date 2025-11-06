@@ -26,9 +26,9 @@ class Task2Game extends FlameGame with HasCollisionDetection {
     debugMode = true;
 
     joystick = JoystickComponent(
-      knob: CircleComponent(radius: 20, paint: Paint()..color = Colors.white),
+      knob: CircleComponent(radius: 30, paint: Paint()..color = Colors.white),
       background: CircleComponent(
-        radius: 40,
+        radius: 60,
         paint: Paint()..color = Colors.black12,
       ),
       margin: const EdgeInsets.only(left: 40, bottom: 40),
