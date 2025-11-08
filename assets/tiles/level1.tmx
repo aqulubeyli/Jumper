@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="10" height="16" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="19">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="10" height="30" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="19">
  <tileset firstgid="1" source="level1ts.tsx"/>
- <layer id="1" name="background" width="10" height="16">
+ <layer id="1" name="background" width="10" height="30">
   <data encoding="csv">
-75,0,0,0,0,227,0,0,0,2147483723,
+76,0,0,0,0,0,0,0,0,94,
+76,0,0,0,0,0,0,0,0,94,
+76,0,0,0,0,0,0,0,0,94,
+76,0,0,0,0,0,0,0,0,94,
+76,0,0,0,0,0,0,0,0,94,
+76,0,0,0,0,0,0,0,0,94,
+76,0,0,0,0,0,0,0,0,94,
+76,0,0,0,0,0,0,0,0,94,
+76,0,0,0,0,0,0,0,0,94,
+76,0,0,0,0,0,0,0,0,94,
+76,0,0,0,0,0,0,0,0,94,
+76,58,58,58,58,58,22,0,0,94,
+76,166,166,166,3221225530,3221225530,1073741846,0,0,94,
+76,0,0,0,0,0,0,0,0,94,
+76,0,0,0,0,227,0,0,0,76,
 76,0,0,0,20,2147483668,0,0,0,2147483724,
 76,0,0,0,0,0,0,0,0,2147483724,
 76,40,2147483688,0,0,0,0,0,0,2147483724,
@@ -22,29 +36,29 @@
 </data>
  </layer>
  <objectgroup id="2" name="spawnpoints">
-  <object id="1" name="player" type="player" x="318.919" y="897.946" width="64" height="64"/>
+  <object id="1" name="player" type="player" x="318.919" y="1793.95" width="64" height="64"/>
  </objectgroup>
  <objectgroup id="3" name="collision_wall">
-  <object id="2" x="0" y="1.35135" width="62.1622" height="958.108"/>
-  <object id="3" x="63.5135" y="320.27"/>
-  <object id="4" x="66.2162" y="327.027">
+  <object id="2" x="0" y="897.351" width="62.1622" height="958.108"/>
+  <object id="3" x="63.5135" y="1216.27"/>
+  <object id="4" x="66.2162" y="1223.03">
    <polygon points="-2.40707,-5.50187 60.1231,57.3963 -4.07817,118.551"/>
   </object>
-  <object id="5" x="576.602" y="0.615044" width="61.7771" height="958.865"/>
-  <object id="6" x="575.735" y="515.017">
+  <object id="5" x="576.602" y="896.615" width="61.7771" height="958.865"/>
+  <object id="6" x="575.735" y="1411.02">
    <polygon points="-0.488329,-0.488329 -63.1304,61.0695 0.947669,125.528"/>
   </object>
  </objectgroup>
  <objectgroup id="5" name="collision_ground">
-  <object id="14" x="3.49467" y="960.984" width="632.535" height="62.9546"/>
+  <object id="14" x="3.49467" y="1856.98" width="632.535" height="62.9546"/>
  </objectgroup>
  <objectgroup id="4" name="collision_platforma">
-  <object id="11" x="129.086" y="578.403" width="186.181" height="58.7505"/>
-  <object id="12" x="322.714" y="709.971" width="60.4055" height="54.6132"/>
-  <object id="13" x="193.628" y="834.092" width="60.4055" height="47.9934"/>
-  <object id="15" x="261.649" y="324.857" width="116.125" height="48.508"/>
-  <object id="16" x="452.741" y="452.741" width="52.9178" height="179.333"/>
-  <object id="17" x="69.0872" y="196.972" width="114.655" height="116.125"/>
-  <object id="18" x="264.589" y="66.1473" width="111.715" height="48.508"/>
+  <object id="11" x="129.086" y="1474.4" width="186.181" height="58.7505"/>
+  <object id="12" x="322.714" y="1605.97" width="60.4055" height="54.6132"/>
+  <object id="13" x="193.628" y="1730.09" width="60.4055" height="47.9934"/>
+  <object id="15" x="261.649" y="1220.86" width="116.125" height="48.508"/>
+  <object id="16" x="452.741" y="1348.74" width="52.9178" height="179.333"/>
+  <object id="17" x="69.0872" y="1092.97" width="114.655" height="116.125"/>
+  <object id="18" x="264.589" y="962.147" width="111.715" height="48.508"/>
  </objectgroup>
 </map>

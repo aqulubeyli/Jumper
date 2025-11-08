@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
@@ -87,7 +88,17 @@ class Task2Game extends FlameGame with HasCollisionDetection {
 
     // camera.viewfinder.anchor = Anchor.center;
     camera.follow(player);
-    camera.setBounds(Rectangle.fromLTWH(0, 0, map.width, map.height));
+    // camera.follow(
+    //   player,
+    //   // maxSpeed: double.infinity, // Camera moves instantly with player
+    //   // verticalOnly: false,
+    //   // horizontalOnly: false,
+    // );
+
+    // print(player.position.x);
+
+    camera.setBounds(Rectangle.fromLTWH(200, 0, map.width - 400, map.height));
+    // camera.moveTo(player.position);
 
     camera.viewport.add(joystick);
     return super.onLoad();

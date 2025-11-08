@@ -16,6 +16,8 @@ class Player extends PositionComponent with CollisionCallbacks {
   final double _jumpForce = 500;
 
   bool isOnGround = false;
+  bool onLeftWall = false;
+  bool onRightWall = false;
 
   Player({Vector2? position, required this.joystick})
     : super(position: position ?? Vector2.zero(), size: Vector2.all(64)) {
@@ -93,8 +95,16 @@ class Player extends PositionComponent with CollisionCallbacks {
     if (other is CollisionWall) {
       if (velocity.x > 0) {
         position.x = other.position.x - size.x;
+        onRightWall = true;
+        onLeftWall = false;
+
+        print("Collided with wall on the right");
       } else if (velocity.x < 0) {
         position.x = other.position.x + other.size.x;
+        onLeftWall = true;
+        onRightWall = false;
+
+        print("Collided with wall on the left");
       }
       velocity.x = 0;
     }
