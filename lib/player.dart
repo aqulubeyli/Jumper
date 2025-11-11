@@ -18,6 +18,12 @@ class Player extends PositionComponent with CollisionCallbacks {
   bool isOnGround = false;
   bool onLeftWall = false;
   bool onRightWall = false;
+  //
+  bool jumpButtonHeld = false;
+
+  // Adding coyote time variables
+  final double coyoteTime = 0.15; // 150 ms of coyote time
+  double coyoteTimer = 0.0;
 
   Player({Vector2? position, required this.joystick})
     : super(position: position ?? Vector2.zero(), size: Vector2.all(64)) {
@@ -35,42 +41,53 @@ class Player extends PositionComponent with CollisionCallbacks {
   void update(double dt) {
     super.update(dt);
 
-    // ---- 1) Smooth Horizontal Movement (Acceleration) ----
-    double targetXSpeed = joystick.relativeDelta.x * _moveSpeed;
-    velocity.x = moveTowards(
-      velocity.x,
-      targetXSpeed,
-      800 * dt,
-    ); // <— 800 = acceleration strength
-
-    // ---- 2) Better Gravity (fall faster) ----
-    if (velocity.y < 0) {
-      // going up
-      velocity.y += _gravity * 0.6 * dt; // gentle gravity going up
+    // --- Update Coyote Time ---
+    if (isOnGround) {
+      coyoteTimer = coyoteTime;
     } else {
-      // falling
-      velocity.y += _gravity * 1.3 * dt; // stronger fall
+      coyoteTimer = (coyoteTimer - dt).clamp(0, coyoteTime);
     }
 
-    // ---- 3) Variable Jump Height ----
-    if (!isOnGround && joystick.relativeDelta.y > -0.2 && velocity.y < 0) {
-      velocity.y *= 0.6; // stop rising early
+    // --- HORIZONTAL MOVEMENT (SMOOTH MARIO ACCELERATION) ---
+    double input = joystick.relativeDelta.x; // -1 to 1
+    double accel = 1200;
+    double friction = isOnGround ? 1000 : 300;
+
+    if (input.abs() > 0.1) {
+      velocity.x += input * accel * dt;
+    } else {
+      // Apply friction only when no input
+      velocity.x = moveTowards(velocity.x, 0, friction * dt);
     }
 
-    // ---- Apply movement ----
-    position += velocity * dt;
+    // Cap speed
+    velocity.x = velocity.x.clamp(-_moveSpeed, _moveSpeed);
 
-    // ---- Jump (press up) ----
-    if (isOnGround && joystick.relativeDelta.y < -0.5) {
+    // --- JUMP INPUT (ONE PRESS) ---
+    bool jumpPressed = joystick.relativeDelta.y < -0.5 && !jumpButtonHeld;
+    jumpButtonHeld = joystick.relativeDelta.y < -0.5;
+
+    if (jumpPressed && (isOnGround || coyoteTimer > 0)) {
       jump();
     }
+
+    // --- VARIABLE JUMP HEIGHT ---
+    if (!isOnGround && !jumpButtonHeld && velocity.y < 0) {
+      velocity.y += _gravity * 1.5 * dt; // damp upward movement
+    }
+
+    // --- GRAVITY ---
+    velocity.y += _gravity * dt;
+
+    // --- APPLY MOVEMENT ---
+    position += velocity * dt;
   }
 
   void jump() {
-    if (isOnGround) {
-      velocity.y = -_jumpForce;
-      isOnGround = false;
-    }
+    velocity.y = -_jumpForce;
+    isOnGround = false;
+    coyoteTimer = 0; // consume coyote time
+    print("Jump executed");
   }
 
   @override

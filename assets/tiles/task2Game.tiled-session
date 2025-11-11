@@ -8,11 +8,11 @@
     ],
     "fileStates": {
         "level1.tmx": {
-            "scale": 0.46,
-            "selectedLayer": 0,
+            "scale": 1.4788,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 196.73913043478262,
-                "y": 842.3913043478261
+                "x": 250.54097917230186,
+                "y": 1771.3686773059237
             }
         },
         "level1_ts.tsx": {

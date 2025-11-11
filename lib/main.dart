@@ -86,7 +86,7 @@ class Task2Game extends FlameGame with HasCollisionDetection {
 
     world.add(player);
 
-    // camera.viewfinder.anchor = Anchor.center;
+    camera.viewfinder.anchor = Anchor.center;
     camera.follow(player);
     // camera.follow(
     //   player,
